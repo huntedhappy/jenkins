@@ -4,7 +4,7 @@ pipeline {
         registryCredential = 'dockerhub'
     }
     agent any
-    tools {maven "M3" }
+    tools {gradle "gradle 7.3.1" }
     stages {
         stage('Cloning Git') {
             steps {
