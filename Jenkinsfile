@@ -21,6 +21,7 @@ pipeline {
         stage("install helm"){
             agnet any
             steps{
+                sh 'adduser --disabled-password --gecos "" jenkins \ && echo 'jenkins:jenkins' | chpasswd \ && adduser user sudo \ && echo 'jenkins ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers'
                 sh 'wget https://get.helm.sh/helm-v3.6.1-linux-amd64.tar.gz'
                 sh 'ls -a'
                 sh 'tar -xvzf helm-v3.6.1-linux-amd64.tar.gz'
