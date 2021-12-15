@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = “bkshashi9/webapp”
+        registry = “jenkins-docker-pipeline/my-image”
         registryCredential = ‘dockerhub’
         dockerImage = ‘’
     }
@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage(‘Cloning Git’) {
         steps {
-            git ‘https://git@github.com/huntedhappy/jenkins.git’
+            git ‘git@github.com:huntedhappy/jenkins.git’
         }
     }
         stage(‘Building Docker Image’) {
