@@ -4,6 +4,6 @@ node {
      }
 
      stage('Build image') {
-         app = docker.build("httpd/httpd:$BUILD_NUMBER")
+         app = docker.build("httpd/httpd:latest")
      }
 }
