@@ -4,5 +4,8 @@ RUN apt upgrade -y
 RUN apt-get update -y
 RUN apt-get install nginx -y
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+RUN useradd docker && echo "docker:docker" | chpasswd
+RUN mkdir -p /home/docker && chown -R docker:docker /home/docker
 
+USER docker
 CMD ["nginx"]
