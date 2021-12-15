@@ -1,0 +1,60 @@
+pipeline {
+    environment {
+        registry = "hemanthpeddi/springboot"
+        registryCredential = 'dockerhub'
+    }
+    agent any
+    tools {maven "maven" }
+    stages {
+        stage('Cloning Git') {
+            steps {
+              #git url: 'https://github.com/hrmanth/game-of-life.git'
+              git url: 'git@github.com:huntedhappy/jenkins.git'
+            }
+        }
+        stage('Build'){
+            steps{
+                sh script: 'mvn clean package'
+            }
+        }
+        stage('Building image') {
+            steps{
+                script {
+                    dockerImage = docker.build registry + ":$tag"
+                }
+            }
+        }
+        stage('Deploy Image') {
+            steps{
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }    
+                }
+            }
+        }
+        stage('Remove Unused docker image') {
+            steps{
+                sh "docker rmi $registry:$BUILD_NUMBER"
+            }
+        }
+        stage("install helm"){
+            steps{
+                sh 'wget https://get.helm.sh/helm-v3.6.1-linux-amd64.tar.gz'
+                sh 'ls -a'
+                sh 'tar -xvzf helm-v3.6.1-linux-amd64.tar.gz'
+                sh 'sudo cp linux-amd64/helm /usr/bin'
+                sh 'helm version'
+            }
+        }	
+        stage('Run Helm') {
+            steps {
+                script {      
+                    container('helm') {
+                        sh "helm ls"
+                    }
+                } 
+            }
+        }
+    }
+}
