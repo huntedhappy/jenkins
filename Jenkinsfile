@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Cloning Git') {
         steps {
-            git 'ssh://git@github.com:huntedhappy/jenkins.git'
+            git 'git@github.com:huntedhappy/jenkins.git'
         }
     }
         stage('Building Docker Image') {
