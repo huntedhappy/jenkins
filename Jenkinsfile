@@ -19,6 +19,7 @@ pipeline {
             }
         }
         stage("install helm"){
+            agnet any
             steps{
                 sh 'wget https://get.helm.sh/helm-v3.6.1-linux-amd64.tar.gz'
                 sh 'ls -a'
