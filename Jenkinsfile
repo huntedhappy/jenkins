@@ -7,10 +7,10 @@ pipeline {
     agent any
     stages {
         stage('Cloning Git') {
-        steps {
-            git 'git@github.com:huntedhappy/jenkins.git'
+            steps{
+                checkout scm
+            }
         }
-    }
         stage('Building Docker Image') {
             steps{
                 script {
