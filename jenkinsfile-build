@@ -4,6 +4,6 @@ node {
      }
 
      stage('Build image') {
-         app = docker.build("httpd/httpd:latest")
+         app = docker.build("jenkins-httpd/httpd:latest")
      }
 }
