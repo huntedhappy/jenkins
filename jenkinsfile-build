@@ -2,6 +2,7 @@ node {
      stage('env') {
          sh 'whoami'
          sh 'echo $PATH'
+         sh 'echo test'
      }
      stage('Clone repository') {
          checkout scm
