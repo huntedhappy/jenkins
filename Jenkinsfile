@@ -24,7 +24,7 @@ pipeline {
                 sh 'wget https://get.helm.sh/helm-v3.6.1-linux-amd64.tar.gz'
                 sh 'ls -a'
                 sh 'tar -xvzf helm-v3.6.1-linux-amd64.tar.gz'
-                sh 'cp linux-amd64/helm /usr/bin'
+                sh 'sudo cp linux-amd64/helm /usr/bin'
                 sh 'helm version'
             }
         }	
