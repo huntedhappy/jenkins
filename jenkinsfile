@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "jenkins-docker-pipeline/my-image"
+        registry = "library/my-image"
         registryCredential = 'dockerhub'
         dockerImage = ''
     }
@@ -18,7 +18,7 @@ pipeline {
                 }
             }
         }
-        stage("install helm"){
+        stage("install helm in Docker"){
             steps {
                 sh 'whoami'
                 sh 'wget https://get.helm.sh/helm-v3.6.1-linux-amd64.tar.gz'
@@ -26,10 +26,10 @@ pipeline {
                 sh 'tar -xvzf helm-v3.6.1-linux-amd64.tar.gz'
             }
         }	
-        stage('Run Helm') {
+        stage('PUSH PRIVATE HARBOR') {
             steps {
                 script {      
-                  docker.withRegistry ('https://harbor.tkg.io/library/', registryCredential) {
+                  docker.withRegistry ('https://harbor.tkg.io', registryCredential) {
                     dockerImage.push()
                     dockerImage.push('latest')
                     }
