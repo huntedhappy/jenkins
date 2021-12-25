@@ -21,9 +21,6 @@ pipeline {
         stage("install helm in Docker"){
             steps {
                 sh 'whoami'
-                sh 'wget https://get.helm.sh/helm-v3.6.1-linux-amd64.tar.gz'
-                sh 'ls -a'
-                sh 'tar -xvzf helm-v3.6.1-linux-amd64.tar.gz'
             }
         }	
         stage('PUSH PRIVATE HARBOR') {
@@ -39,16 +36,6 @@ pipeline {
         stage('Deploy'){
             steps {
                 sshagent(credentials : ['ubuntu']) {
-                    sh("""
-                        #!/usr/bin/env bash
-                        set +x
-                        export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
-                        git config --global user.email "huntedhappy@gmail.com"
-                        git checkout main
-                        cd env/dev && kustomize edit set image arm7tdmi/node-hello-world:${BUILD_NUMBER}
-                        git commit -a -m "updated the image tag"
-                        git push
-                    """)
                 }
             }
         }        
