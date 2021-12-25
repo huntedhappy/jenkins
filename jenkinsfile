@@ -36,6 +36,10 @@ pipeline {
         stage('Deploy'){
             steps {
                 sshagent(credentials : ['ubuntu']) {
+                    #!/usr/bin/env bash
+                    set +x
+                    export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
+                    git config --global user.email "cure4itches@gmail.com"
                 }
             }
         }        
