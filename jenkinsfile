@@ -38,7 +38,7 @@ pipeline {
         }
         stage('Deploy'){
             steps {
-                sshagent(credentials : ['jenkins']) {
+                sshagent(credentials : ['ubuntu']) {
                     sh("""
                         #!/usr/bin/env bash
                         set +x
