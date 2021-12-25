@@ -28,23 +28,10 @@ pipeline {
                 script {      
                   docker.withRegistry ('https://harbor.tkg.io', registryCredential) {
                     dockerImage.push()
-                    dockerImage.push('latest')
+                    dockerImage.push('${tag}')
                     }
                 } 
             }
         }
-        stage('Deploy'){
-            steps {
-                sshagent(credentials : ['jenkins']) {
-                    sh ("""
-                        #!/usr/bin/env bash
-                        set +x
-                        export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
-                        git config --global user.email "huntedhappy@gmail.com"
-                        git checkout main
-                    """)
-                }
-            }
-        }        
     }
 }
