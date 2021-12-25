@@ -40,7 +40,8 @@ pipeline {
                         #!/usr/bin/env bash
                         set +x
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
-                        git config --global user.email "cure4itches@gmail.com"
+                        git config --global user.email "huntedhappy@gmail.com"
+                        git checkout main
                     """)
                 }
             }
