@@ -29,7 +29,7 @@ pipeline {
         stage('Run Helm') {
             steps {
                 script {      
-                  docker.withRegistry ('', registryCredential) {
+                  docker.withRegistry ('https://harbor.tkg.io/library/', registryCredential) {
                     dockerImage.push()
                     dockerImage.push('latest')
                     }
